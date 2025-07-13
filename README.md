@@ -189,17 +189,17 @@ POST /api/execute-object
 
   ## Görseller
  - <img width="1451" height="415" alt="image" src="https://github.com/user-attachments/assets/72849b40-0f11-4779-8317-65b967814f24" />
-
+##
  - <img width="1380" height="631" alt="image" src="https://github.com/user-attachments/assets/c18a1f9d-5d68-41a0-a0e5-d145ebd6d4e9" />
-
- -<img width="1317" height="754" alt="image" src="https://github.com/user-attachments/assets/f67149f2-1771-4ac8-8480-87afd44893ac" />\
-
+##
+ - <img width="1317" height="754" alt="image" src="https://github.com/user-attachments/assets/f67149f2-1771-4ac8-8480-87afd44893ac" />
+##
  - <img width="1330" height="654" alt="image" src="https://github.com/user-attachments/assets/398c7111-3783-49d3-a21d-53b18d8fb2a3" />
-
+##
  - <img width="1329" height="463" alt="image" src="https://github.com/user-attachments/assets/27946c8e-2d2a-41c5-bf55-4cc6273f9d0e" />
-
+##
  - <img width="1322" height="801" alt="image" src="https://github.com/user-attachments/assets/4b7ac276-e1b0-4546-bb30-ef8605e025b3" />
-
+##
  - <img width="268" height="208" alt="image" src="https://github.com/user-attachments/assets/4322c55b-80de-4546-beba-1d1ad8c1ec88" />
 
 
