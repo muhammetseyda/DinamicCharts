@@ -1,0 +1,249 @@
+﻿@{
+    Layout = null;
+    var username = Context.Session.GetString("Username");
+    var token = Context.Session.GetString("Token");
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinamic Chart</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body class="bg-light">
+    <div class="gradient-bg py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="display-4 fw-bold mb-0">
+                        Dinamik Chart Görselleştirme Uygulaması
+                    </h1>
+
+                </div>
+                <div class="bg-warning text-white text-end py-2 px-4">
+                    @if (!string.IsNullOrEmpty(username))
+                    {
+                        <span><i class="fas fa-user"></i> @username</span>
+                        <span>
+                            <i class="fas fa-key"></i> Token:
+                            <input type="password" id="tokenInput" value="@token" readonly style="border:none; background:transparent; width:300px;" />
+                            <button onclick="copyToken()" class="btn btn-sm btn-outline-secondary ms-2">
+                                <i class="fas fa-copy"></i> Kopyala
+                            </button>
+                        </span>
+
+                        <form method="post" action="/Chart/Logout" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger ms-3">
+                                <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-label">Veritabanı Bağlantısı</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-label">Veri Objesi Seçimi</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-label">Grafik Tipi</div>
+            </div>
+            <div class="step" id="step4">
+                <div class="step-number">4</div>
+                <div class="step-label">Veri Haritalama</div>
+            </div>
+            <div class="step" id="step5">
+                <div class="step-number">5</div>
+                <div class="step-label">Grafik Görselleştirme</div>
+            </div>
+        </div>
+
+        <div class="card mb-4 fade-in" id="connectionCard">
+            <div class="card-header gradient-bg">
+                <h5 class="mb-0">
+                    Veritabanı Bağlantı Bilgileri
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Host/Server</label>
+                            <input type="text" class="form-control" id="host" placeholder="localhost\SQLEXPRESS">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Database</label>
+                            <input type="text" class="form-control" id="dbAdi" placeholder="TestDB">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="sa">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary btn-lg" onclick="testConnection()">
+                        <i class="fas fa-plug me-2"></i>
+                        Bağlantıyı Test Et
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 fade-in" id="objectCard" style="display: none;">
+            <div class="card-header gradient-bg">
+                <h5 class="mb-0">
+                    Veri Objesi Seçimi
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Views</h6>
+                        <div class="object-list" id="viewsList">
+                            <div class="loading" id="viewsLoading">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p>Views yükleniyor...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Stored Procedures</h6>
+                        <div class="object-list" id="proceduresList">
+                            <div class="loading" id="proceduresLoading">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p>Procedures yükleniyor...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Functions</h6>
+                        <div class="object-list" id="functionsList">
+                            <div class="loading" id="functionsLoading">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p>Functions yükleniyor...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-primary" onclick="loadDataPreview()" disabled id="loadDataBtn">
+                        Veri Önizleme
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 fade-in" id="chartTypeCard" style="display: none;">
+            <div class="card-header gradient-bg">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Grafik Tipi Seçimi
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card chart-type-card" onclick="selectChartType('line')">
+                            <div class="card-body text-center">
+                                <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
+                                <h6>Line Chart</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card chart-type-card" onclick="selectChartType('bar')">
+                            <div class="card-body text-center">
+                                <i class="fas fa-chart-bar fa-3x mb-3 text-success"></i>
+                                <h6>Bar Chart</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card chart-type-card" onclick="selectChartType('radar')">
+                            <div class="card-body text-center">
+                                <i class="fas fa-chart-area fa-3x mb-3 text-warning"></i>
+                                <h6>Radar Chart</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 fade-in" id="mappingCard" style="display: none;">
+            <div class="card-header gradient-bg">
+                <h5 class="mb-0">
+                    Veri Haritalama
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">X Ekseni (Labels)</label>
+                            <select class="form-select" id="xAxis">
+                                <option value="">Seçiniz...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Y Ekseni (Values)</label>
+                            <select class="form-select" id="yAxis">
+                                <option value="">Seçiniz...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary btn-lg" onclick="generateChart()" id="generateBtn" disabled>
+                        <i class="fas fa-magic me-2"></i>
+                        Grafik Oluştur
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 fade-in" id="chartCard" style="display: none;">
+            <div class="card-header gradient-bg">
+                <h5 class="mb-0">
+                    Grafik Görselleştirme
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="dynamicChart"></canvas>
+                </div>
+                <div class="text-center mt-3">
+                    <button class="btn btn-success" onclick="resetWizard()">
+                        <i class="fas fa-redo me-2"></i>
+                        Yeni Grafik Oluştur
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js"></script>
+</body>
+</html>
