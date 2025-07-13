@@ -188,19 +188,24 @@ POST /api/execute-object
 - Token süresi: 30 dakika (konfigürasyondan değiştirilebilir)
 
   ## Görseller
- - <img width="259" height="193" alt="image" src="https://github.com/user-attachments/assets/3d78721f-b0db-4f26-919c-b246d6249817" />
+ - <img width="1451" height="415" alt="image" src="https://github.com/user-attachments/assets/72849b40-0f11-4779-8317-65b967814f24" />
 
- - <img width="471" height="400" alt="image" src="https://github.com/user-attachments/assets/8a2cca58-f7ff-4aa3-9fc2-12766537b68d" />
+ - <img width="1380" height="631" alt="image" src="https://github.com/user-attachments/assets/c18a1f9d-5d68-41a0-a0e5-d145ebd6d4e9" />
 
- - <img width="1379" height="628" alt="image" src="https://github.com/user-attachments/assets/58f3448f-236b-4ea5-9265-b0bace02e2e4" />
+ -<img width="1317" height="754" alt="image" src="https://github.com/user-attachments/assets/f67149f2-1771-4ac8-8480-87afd44893ac" />\
 
- - <img width="1332" height="433" alt="image" src="https://github.com/user-attachments/assets/2b64c11d-098b-44a6-932c-7e5a531fa9e4" />
+ - <img width="1330" height="654" alt="image" src="https://github.com/user-attachments/assets/398c7111-3783-49d3-a21d-53b18d8fb2a3" />
 
- - <img width="1313" height="652" alt="image" src="https://github.com/user-attachments/assets/9e728d99-6f5a-4afd-a7c5-7ebce0f79181" />
+ - <img width="1329" height="463" alt="image" src="https://github.com/user-attachments/assets/27946c8e-2d2a-41c5-bf55-4cc6273f9d0e" />
 
- - <img width="1336" height="239" alt="image" src="https://github.com/user-attachments/assets/aee53820-993f-4ab3-ade8-b8de4c4540ef" />
+ - <img width="1322" height="801" alt="image" src="https://github.com/user-attachments/assets/4b7ac276-e1b0-4546-bb30-ef8605e025b3" />
 
- - <img width="1321" height="801" alt="image" src="https://github.com/user-attachments/assets/3aa9db80-dc98-40f4-b0f7-fd9295b87f94" />
+ - <img width="268" height="208" alt="image" src="https://github.com/user-attachments/assets/4322c55b-80de-4546-beba-1d1ad8c1ec88" />
+
+
+
+
+
 
 
 
